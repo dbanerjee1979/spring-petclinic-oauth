@@ -1,4 +1,4 @@
-package demo.petclinic.entities;
+package demo.petclinic.owners.entities;
 
 import javax.persistence.*;
 

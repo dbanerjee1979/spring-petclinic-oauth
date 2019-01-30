@@ -1,6 +1,6 @@
-package demo.petclinic.entities;
+package demo.petclinic.owners.entities;
 
-import demo.petclinic.dtos.PetDto;
+import demo.petclinic.owners.dtos.PetDto;
 import demo.petclinic.repositories.PetTypeRepository;
 
 import javax.persistence.*;
@@ -8,7 +8,6 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Objects;
 
 @Entity
 @Table

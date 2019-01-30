@@ -1,6 +1,6 @@
-package demo.petclinic.config;
+package demo.petclinic.owners.config;
 
-import demo.petclinic.entities.*;
+import demo.petclinic.owners.entities.*;
 import demo.petclinic.repositories.OwnerRepository;
 import demo.petclinic.repositories.PetTypeRepository;
 import org.springframework.boot.ApplicationArguments;
@@ -11,11 +11,11 @@ import java.time.LocalDate;
 import java.util.Arrays;
 
 @Configuration
-public class CannedData implements ApplicationRunner  {
+public class OwnersCannedData implements ApplicationRunner  {
     private PetTypeRepository petTypeRepository;
     private OwnerRepository ownerRepository;
 
-    public CannedData(PetTypeRepository petTypeRepository, OwnerRepository ownerRepository) {
+    public OwnersCannedData(PetTypeRepository petTypeRepository, OwnerRepository ownerRepository) {
         this.petTypeRepository = petTypeRepository;
         this.ownerRepository = ownerRepository;
     }

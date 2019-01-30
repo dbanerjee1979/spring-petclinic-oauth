@@ -1,21 +1,35 @@
-package demo.petclinic.dtos;
+package demo.petclinic.owners.entities;
 
-import demo.petclinic.entities.Visit;
+import demo.petclinic.owners.dtos.VisitDto;
 
+import javax.persistence.*;
 import java.time.LocalDate;
 
-public class VisitDto {
+@Entity
+@Table
+public class Visit {
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
+
     private LocalDate visitDate;
     private String details;
 
-    public VisitDto() {
+    @ManyToOne
+    private Pet pet;
+
+    public Visit() {
     }
 
-    public VisitDto(Visit visit) {
-        this.id = visit.getId();
+    public Visit(LocalDate visitDate, String details) {
+        this.visitDate = visitDate;
+        this.details = details;
+    }
+
+    public Visit(VisitDto visit, Pet pet) {
         this.visitDate = visit.getVisitDate();
         this.details = visit.getDetails();
+        this.pet = pet;
     }
 
     public Long getId() {
@@ -40,5 +54,13 @@ public class VisitDto {
 
     public void setDetails(String details) {
         this.details = details;
+    }
+
+    public void setPet(Pet pet) {
+        this.pet = pet;
+    }
+
+    public Pet getPet() {
+        return pet;
     }
 }

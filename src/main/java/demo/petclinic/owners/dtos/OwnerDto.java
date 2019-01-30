@@ -1,6 +1,6 @@
-package demo.petclinic.dtos;
+package demo.petclinic.owners.dtos;
 
-import demo.petclinic.entities.Owner;
+import demo.petclinic.owners.entities.Owner;
 
 public class OwnerDto {
     private Long id;

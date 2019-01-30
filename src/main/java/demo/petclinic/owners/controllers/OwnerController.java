@@ -1,9 +1,9 @@
-package demo.petclinic.controllers;
+package demo.petclinic.owners.controllers;
 
-import demo.petclinic.dtos.*;
-import demo.petclinic.entities.Owner;
-import demo.petclinic.entities.Pet;
-import demo.petclinic.entities.Visit;
+import demo.petclinic.owners.dtos.*;
+import demo.petclinic.owners.entities.Owner;
+import demo.petclinic.owners.entities.Pet;
+import demo.petclinic.owners.entities.Visit;
 import demo.petclinic.repositories.OwnerRepository;
 import demo.petclinic.repositories.PetRepository;
 import demo.petclinic.repositories.PetTypeRepository;

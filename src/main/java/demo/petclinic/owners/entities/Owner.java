@@ -1,7 +1,6 @@
-package demo.petclinic.entities;
+package demo.petclinic.owners.entities;
 
-import demo.petclinic.dtos.OwnerDto;
-import org.springframework.core.annotation.Order;
+import demo.petclinic.owners.dtos.OwnerDto;
 
 import javax.persistence.*;
 import java.util.*;

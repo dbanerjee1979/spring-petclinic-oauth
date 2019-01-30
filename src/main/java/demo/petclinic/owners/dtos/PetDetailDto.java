@@ -1,7 +1,7 @@
-package demo.petclinic.dtos;
+package demo.petclinic.owners.dtos;
 
-import demo.petclinic.entities.Pet;
-import demo.petclinic.entities.PetType;
+import demo.petclinic.owners.entities.Pet;
+import demo.petclinic.owners.entities.PetType;
 
 import java.time.LocalDate;
 import java.util.List;

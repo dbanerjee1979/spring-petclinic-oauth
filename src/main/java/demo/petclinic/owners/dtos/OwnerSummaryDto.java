@@ -1,28 +1,28 @@
-package demo.petclinic.dtos;
+package demo.petclinic.owners.dtos;
 
-import demo.petclinic.entities.Owner;
+import demo.petclinic.owners.entities.Owner;
 
 import java.util.List;
 
 import static java.util.stream.Collectors.toList;
 
-public class OwnerDetailDto {
+public class OwnerSummaryDto {
     private Long id;
     private String firstName;
     private String lastName;
     private String address;
     private String city;
     private String telephone;
-    private List<PetDetailDto> pets;
+    private List<PetIdDto> pets;
 
-    public OwnerDetailDto(Owner owner) {
+    public OwnerSummaryDto(Owner owner) {
         this.id = owner.getId();
         this.firstName = owner.getFirstName();
         this.lastName = owner.getLastName();
         this.address = owner.getAddress();
         this.city = owner.getCity();
         this.telephone = owner.getTelephone();
-        this.pets = owner.getPets().stream().map(PetDetailDto::new).collect(toList());
+        this.pets = owner.getPets().stream().map(PetIdDto::new).collect(toList());
     }
 
     public Long getId() {
@@ -73,11 +73,11 @@ public class OwnerDetailDto {
         this.telephone = telephone;
     }
 
-    public List<PetDetailDto> getPets() {
+    public List<PetIdDto> getPets() {
         return pets;
     }
 
-    public void setPets(List<PetDetailDto> pets) {
+    public void setPets(List<PetIdDto> pets) {
         this.pets = pets;
     }
 }

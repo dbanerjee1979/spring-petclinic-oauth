@@ -1,7 +1,7 @@
-package demo.petclinic.controllers;
+package demo.petclinic.owners.controllers;
 
-import demo.petclinic.dtos.PetTypeDto;
-import demo.petclinic.entities.PetType;
+import demo.petclinic.owners.dtos.PetTypeDto;
+import demo.petclinic.owners.entities.PetType;
 import demo.petclinic.repositories.PetTypeRepository;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
