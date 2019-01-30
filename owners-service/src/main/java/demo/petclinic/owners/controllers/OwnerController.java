@@ -10,9 +10,14 @@ import demo.petclinic.owners.repositories.PetTypeRepository;
 import demo.petclinic.owners.repositories.VisitRepository;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.AccessDeniedException;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
 import java.util.List;
+import java.util.function.Supplier;
 
 import static java.util.stream.Collectors.toList;
 
@@ -48,21 +53,23 @@ public class OwnerController {
                 .orElseGet(() -> ResponseEntity.notFound().build());
     }
 
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public OwnerDto create(@RequestBody OwnerDto owner) {
         return new OwnerDto(ownerRepository.save(new Owner(owner)));
     }
 
+    @PreAuthorize("hasRole('ROLE_OWNER')")
     @PutMapping(path = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<OwnerDto> update(@PathVariable Long id, @RequestBody OwnerDto owner) {
+    public ResponseEntity<OwnerDto> update(@PathVariable Long id, @RequestBody OwnerDto owner, Principal principal) {
+        Authentication auth = (Authentication) principal;
         return ownerRepository.findById(id)
-                .map(existingOwner -> existingOwner.merge(owner))
-                .map(ownerRepository::save)
-                .map(OwnerDto::new)
-                .map(ResponseEntity::ok)
+                .map(existingOwner -> check(existingOwner, auth, () ->
+                        ResponseEntity.ok(new OwnerDto(ownerRepository.save(existingOwner.merge(owner))))))
                 .orElseGet(() -> ResponseEntity.notFound().build());
     }
 
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @PostMapping(path = "/{id}/pets", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<PetDto> createPet(@PathVariable long id, @RequestBody PetDto pet) {
         return ownerRepository.findById(id)
@@ -71,26 +78,41 @@ public class OwnerController {
                 .orElseGet(() -> ResponseEntity.notFound().build());
     }
 
+    @PreAuthorize("hasRole('ROLE_OWNER')")
     @PutMapping(path = "/{ownerId}/pets/{id}", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<PetDto> updatePet(@PathVariable long ownerId, @PathVariable long id, @RequestBody PetDto pet) {
-        return !ownerRepository.existsById(ownerId) ?
-                ResponseEntity.notFound().build() :
-                petRepository.findById(id)
-                    .map(existing -> existing.merge(pet, petTypeRepository))
-                    .map(petRepository::save)
-                    .map(PetDto::new)
-                    .map(ResponseEntity::ok)
-                    .orElseGet(() -> ResponseEntity.notFound().build());
+    public ResponseEntity<PetDto> updatePet(@PathVariable long ownerId, @PathVariable long id, @RequestBody PetDto pet,
+                                            Principal principal) {
+        Authentication auth = (Authentication) principal;
+        return ownerRepository.findById(ownerId)
+                .flatMap(existingOwner -> check(existingOwner, auth, () ->
+                    petRepository.findById(id)
+                        .map(existing -> existing.merge(pet, petTypeRepository))
+                        .map(petRepository::save)
+                        .map(PetDto::new)
+                        .map(ResponseEntity::ok)))
+                .orElseGet(() -> ResponseEntity.notFound().build());
     }
 
+    @PreAuthorize("hasRole('ROLE_OWNER')")
     @PostMapping(path = "/{ownerId}/pets/{id}/visits", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<VisitDto> createVisit(@PathVariable long ownerId, @PathVariable long id, @RequestBody VisitDto visit) {
-        return !ownerRepository.existsById(ownerId) ?
-                ResponseEntity.notFound().build() :
-                petRepository.findById(id)
-                    .map(pet -> visitRepository.save(new Visit(visit, pet)))
-                    .map(VisitDto::new)
-                    .map(ResponseEntity::ok)
-                    .orElseGet(() -> ResponseEntity.notFound().build());
+    public ResponseEntity<VisitDto> createVisit(@PathVariable long ownerId, @PathVariable long id, @RequestBody VisitDto visit,
+                                                Principal principal) {
+        Authentication auth = (Authentication) principal;
+        return ownerRepository.findById(ownerId)
+                .flatMap(existingOwner -> check(existingOwner, auth, () ->
+                    petRepository.findById(id)
+                        .map(pet -> visitRepository.save(new Visit(visit, pet)))
+                        .map(VisitDto::new)
+                        .map(ResponseEntity::ok)))
+                .orElseGet(() -> ResponseEntity.notFound().build());
+    }
+
+    private <T> T check(Owner owner, Authentication auth, Supplier<T> action) {
+        if (owner.getUsername().equals(auth.getName())) {
+            return action.get();
+        }
+        else {
+            throw new AccessDeniedException("Access denied");
+        }
     }
 }
