@@ -1,8 +1,8 @@
 package demo.petclinic.owners.config;
 
 import demo.petclinic.owners.entities.*;
-import demo.petclinic.repositories.OwnerRepository;
-import demo.petclinic.repositories.PetTypeRepository;
+import demo.petclinic.owners.repositories.OwnerRepository;
+import demo.petclinic.owners.repositories.PetTypeRepository;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.context.annotation.Configuration;

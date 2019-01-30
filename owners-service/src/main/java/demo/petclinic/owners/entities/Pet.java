@@ -1,7 +1,7 @@
 package demo.petclinic.owners.entities;
 
 import demo.petclinic.owners.dtos.PetDto;
-import demo.petclinic.repositories.PetTypeRepository;
+import demo.petclinic.owners.repositories.PetTypeRepository;
 
 import javax.persistence.*;
 import java.time.LocalDate;

@@ -1,4 +1,4 @@
-package demo.petclinic.repositories;
+package demo.petclinic.owners.repositories;
 
 import demo.petclinic.owners.entities.Owner;
 import org.springframework.data.jpa.repository.EntityGraph;
