@@ -4,11 +4,19 @@
     <li class="nav-item">
       <a class="nav-link" href="#" routerLink="/welcome" routerLinkActive="active">Welcome</a>
     </li>
-    <li class="nav-item">
+    <li class="nav-item" *ngIf="authenticated">
       <a class="nav-link" href="#" routerLink="/owners" routerLinkActive="active">Find Owners</a>
     </li>
-    <li class="nav-item">
+    <li class="nav-item" *ngIf="authenticated">
       <a class="nav-link" href="#" routerLink="/vets" routerLinkActive="active">Veterinarian</a>
+    </li>
+    <li class="nav-item" *ngIf="!authenticated">
+      <a class="nav-link" href="http://localhost:8080/pet-clinic/login">Login</a>
+    </li>
+    <li class="nav-item" *ngIf="authenticated">
+      <form ngNoForm action="http://localhost:8080/pet-clinic/logout" method="post">
+        <button type="submit" class="nav-link btn btn-link">Logout</button>
+      </form>
     </li>
   </ul>
 </div>

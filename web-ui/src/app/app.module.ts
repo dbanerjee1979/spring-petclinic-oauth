@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { NgModule, APP_INITIALIZER } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { NgbModule, NgbDateAdapter, NgbDateNativeAdapter } from '@ng-bootstrap/ng-bootstrap';
@@ -13,6 +13,7 @@ import { OwnerDetailComponent } from './owner-detail/owner-detail.component';
 import { OwnerEditComponent } from './owner-edit/owner-edit.component';
 import { PetEditComponent } from './pet-edit/pet-edit.component';
 import { VisitEditComponent } from './visit-edit/visit-edit.component';
+import { AuthService } from './auth.service';
 
 @NgModule({
   declarations: [
@@ -38,7 +39,12 @@ import { VisitEditComponent } from './visit-edit/visit-edit.component';
     VisitEditComponent
   ],
   providers: [
-    { provide: NgbDateAdapter, useClass: NgbDateNativeAdapter }
+    { provide: NgbDateAdapter, useClass: NgbDateNativeAdapter },
+    { provide: APP_INITIALIZER, 
+      useFactory: (auth: AuthService) => () => auth.check(),
+      deps: [ AuthService ],
+      multi: true
+    }
   ],
   bootstrap: [AppComponent]
 })
