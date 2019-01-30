@@ -1,0 +1,84 @@
+<main role="main" class="col-md-12 px-4">
+  <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+    <h1 class="h2">Owner Details</h1>
+  </div>
+
+  <div class="card mb-3" style="width: 36rem;">
+    <div class="card-body">
+      <div class="container mb-3">
+        <div class="row">
+          <div class="col-3 text-right">
+            <strong>First Name</strong>
+          </div>
+          <div class="col-6">
+            {{owner.firstName}}
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-3 text-right">
+            <strong>Last Name</strong>
+          </div>
+          <div class="col-6">
+            {{owner.lastName}}
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-3 text-right">
+            <strong>Address</strong>
+          </div>
+          <div class="col-6">
+            {{owner.address}}
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-3 text-right">
+            <strong>City</strong>
+          </div>
+          <div class="col-6">
+            {{owner.city}}
+          </div>
+        </div>  
+        <div class="row">
+          <div class="col-3 text-right">
+            <strong>Telephone</strong>
+          </div>
+          <div class="col-6">
+            {{owner.telephone}}
+          </div>
+        </div>    
+      </div>
+      <button class="btn btn-primary mr-3" (click)="editOwner()">Edit Owner</button>
+      <button class="btn btn-secondary" (click)="newPet()">New Pet</button>
+    </div>
+  </div>
+
+  <h2 class="mb-3">Pets</h2>
+
+  <div class="d-flex flex-row">
+    <div class="card mr-4" style="width: 45rem;" *ngFor="let pet of owner.pets">
+      <div class="card-body">
+        <h5 class="card-title">{{pet.name}}</h5>
+        <h6 class="card-subtitle mb-2 text-muted">
+          <span class="mr-5"><strong>Birthdate</strong> {{pet.birthdate | date:'yyyy-MM-dd'}}</span>
+          <span><strong>Pet Type</strong> {{pet.petType.name}}</span>
+        </h6>
+        <table class="table table-striped table-hover table-sm">
+          <thead>
+            <tr>
+              <th class="visit-date">Visit Date</th>
+              <th>Details</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let visit of pet.visits">
+              <td>{{visit.visitDate}}</td>
+              <td>{{visit.details}}</td>
+            </tr>    
+          </tbody>
+        </table>
+        <button class="btn btn-primary mr-3" (click)="editPet(pet)">Edit Pet</button>
+        <button class="btn btn-secondary" (click)="createVisit(pet)">New Visit</button>  
+      </div>
+    </div>    
+  </div>
+</main>

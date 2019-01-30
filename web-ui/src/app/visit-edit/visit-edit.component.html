@@ -1,0 +1,28 @@
+<div class="modal-header">
+  <h4 class="modal-title" id="modal-basic-title">New Visit</h4>
+  <button type="button" class="close" aria-label="Close" (click)="modal.dismiss()">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="modal-body">
+  <form>
+    <div class="form-group row">
+      <label for="visitdate" class="col-sm-3 col-form-label">Visit Date</label>
+      <div class="col-sm-9 input-group">
+        <input id="visitdate" class="form-control" placeholder="yyyy-mm-dd" name="visitdate" ngbDatepicker #dp="ngbDatepicker" [(ngModel)]="visit.visitDate">
+        <div class="input-group-append">
+          <button class="btn btn-outline-secondary calendar" (click)="dp.toggle()" type="button" [innerHtml]="calendarIcon"></button>
+        </div>
+      </div>
+    </div>  
+    <div class="form-group row">
+      <label for="details" class="col-sm-3 col-form-label">Details</label>
+      <div class="col-sm-9">
+        <input id="details" name="details" class="form-control" [(ngModel)]="visit.details">
+      </div>
+    </div>
+  </form>
+</div>
+<div class="modal-footer">
+  <button type="button" class="btn btn-outline-dark" (click)="modal.close(visit)">Create Visit</button>
+</div>

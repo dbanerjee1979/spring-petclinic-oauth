@@ -1,0 +1,38 @@
+<div class="modal-header">
+  <h4 class="modal-title" id="modal-basic-title" *ngIf="!pet.id">New Pet</h4>
+  <h4 class="modal-title" id="modal-basic-title" *ngIf="pet.id">Edit Pet</h4>
+  <button type="button" class="close" aria-label="Close" (click)="modal.dismiss()">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="modal-body">
+  <form>
+    <div class="form-group row">
+      <label for="firstName" class="col-sm-3 col-form-label">Name</label>
+      <div class="col-sm-9">
+        <input id="firstName" name="firstName" class="form-control" [(ngModel)]="pet.name">
+      </div>
+    </div>
+    <div class="form-group row">
+      <label for="birthdate" class="col-sm-3 col-form-label">Birthdate</label>
+      <div class="col-sm-9 input-group">
+        <input id="birthdate" class="form-control" placeholder="yyyy-mm-dd" name="birthdate" ngbDatepicker #dp="ngbDatepicker" [(ngModel)]="pet.birthdate">
+        <div class="input-group-append">
+          <button class="btn btn-outline-secondary calendar" (click)="dp.toggle()" type="button" [innerHtml]="calendarIcon"></button>
+        </div>
+      </div>
+    </div>  
+    <div class="form-group row">
+      <label for="pettype" class="col-sm-3 col-form-label">Pet Type</label>
+      <div class="col-sm-9">
+        <select [(ngModel)]="pet.petType" [compareWith]="comparePetType" id="pettype" name="pettype" class="form-control">
+          <option *ngFor="let type of petTypes" [ngValue]=type>{{type.name}}</option>
+        </select>
+      </div>
+    </div>    
+  </form>
+</div>
+<div class="modal-footer">
+  <button type="button" class="btn btn-outline-dark" (click)="modal.close(pet)" *ngIf="!pet.id">Create Pet</button>
+  <button type="button" class="btn btn-outline-dark" (click)="modal.close(pet)" *ngIf="pet.id">Update Pet</button>
+</div>  

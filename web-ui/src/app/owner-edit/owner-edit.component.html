@@ -1,0 +1,45 @@
+<div class="modal-header">
+  <h4 class="modal-title" id="modal-basic-title" *ngIf="!owner.id">New Owner</h4>
+  <h4 class="modal-title" id="modal-basic-title" *ngIf="owner.id">Edit Owner</h4>
+  <button type="button" class="close" aria-label="Close" (click)="modal.dismiss()">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="modal-body">
+  <form>
+    <div class="form-group row">
+      <label for="firstName" class="col-sm-3 col-form-label">First Name</label>
+      <div class="col-sm-9">
+        <input id="firstName" name="firstName" class="form-control" [(ngModel)]="owner.firstName">
+      </div>
+    </div>
+    <div class="form-group row">
+      <label for="lastName" class="col-sm-3 col-form-label">Last Name</label>
+      <div class="col-sm-9">
+        <input id="lastName" name="lastName" class="form-control" [(ngModel)]="owner.lastName">
+      </div>
+    </div>  
+    <div class="form-group row">
+      <label for="address" class="col-sm-3 col-form-label">Address</label>
+      <div class="col-sm-9">
+        <input id="address" name="address" class="form-control" [(ngModel)]="owner.address">
+      </div>
+    </div>    
+    <div class="form-group row">
+      <label for="city" class="col-sm-3 col-form-label">City</label>
+      <div class="col-sm-9">
+        <input id="city" name="city" class="form-control" [(ngModel)]="owner.city">
+      </div>
+    </div>      
+    <div class="form-group row">
+      <label for="city" class="col-sm-3 col-form-label">Telephone</label>
+      <div class="col-sm-9">
+        <input id="telephone" name="telephone" class="form-control" [(ngModel)]="owner.telephone">
+      </div>
+    </div>        
+  </form>
+</div>
+<div class="modal-footer">
+  <button type="button" class="btn btn-outline-dark" (click)="modal.close(owner)" *ngIf="!owner.id">Create Owner</button>
+  <button type="button" class="btn btn-outline-dark" (click)="modal.close(owner)" *ngIf="owner.id">Update Owner</button>
+</div>
