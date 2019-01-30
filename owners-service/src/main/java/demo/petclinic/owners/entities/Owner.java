@@ -23,6 +23,8 @@ public class Owner {
     @Column(nullable = false)
     private String lastName;
     @Column(nullable = false)
+    private String username;
+    @Column(nullable = false)
     private String address;
     @Column(nullable = false)
     private String city;
@@ -37,9 +39,11 @@ public class Owner {
     public Owner() {
     }
 
-    public Owner(String firstName, String lastName, String address, String city, String telephone, Pet... pets) {
+    public Owner(String firstName, String lastName, String username, String address, String city, String telephone,
+                 Pet... pets) {
         this.firstName = firstName;
         this.lastName = lastName;
+        this.username = username;
         this.address = address;
         this.city = city;
         this.telephone = telephone;
