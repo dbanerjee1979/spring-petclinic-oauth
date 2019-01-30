@@ -1,6 +1,6 @@
-package demo.petclinic.dtos;
+package demo.petclinic.veterinarians.dtos;
 
-import demo.petclinic.entities.Vet;
+import demo.petclinic.veterinarians.entities.Vet;
 
 import java.util.List;
 

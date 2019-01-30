@@ -1,6 +1,6 @@
-package demo.petclinic.dtos;
+package demo.petclinic.veterinarians.dtos;
 
-import demo.petclinic.entities.Specialty;
+import demo.petclinic.veterinarians.entities.Specialty;
 
 public class SpecialtyDto {
     private Long id;

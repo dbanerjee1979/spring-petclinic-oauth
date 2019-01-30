@@ -1,7 +1,7 @@
-package demo.petclinic.controllers;
+package demo.petclinic.veterinarians.controllers;
 
-import demo.petclinic.dtos.VetSummaryDto;
-import demo.petclinic.repositories.VetRepository;
+import demo.petclinic.veterinarians.dtos.VetSummaryDto;
+import demo.petclinic.veterinarians.repositories.VetRepository;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
