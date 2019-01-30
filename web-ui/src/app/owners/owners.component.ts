@@ -4,6 +4,7 @@ import { Owner } from '../owner';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { OwnerEditComponent } from '../owner-edit/owner-edit.component';
 import { switchMap } from 'rxjs/operators';
+import { AuthService } from '../auth.service';
 
 @Component({
   selector: 'app-owners',
@@ -13,11 +14,20 @@ import { switchMap } from 'rxjs/operators';
 export class OwnersComponent implements OnInit {
   owners: Owner[];
   lastName: string;
+  newOwnerAllowed: boolean = false;
 
-  constructor(private ownerService: OwnerService, private modalService: NgbModal) { }
+  constructor(
+    private ownerService: OwnerService, 
+    private modalService: NgbModal,
+    private auth: AuthService) { }
 
   ngOnInit() {
     this.findOwners();
+    this.auth.authenticated.subscribe((authenticated: boolean) => {
+      console.log(this.auth);
+      console.log(authenticated);
+      this.newOwnerAllowed = authenticated && this.auth.hasAdmin();
+    });
   }
 
   findOwners() {

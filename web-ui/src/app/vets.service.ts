@@ -12,7 +12,9 @@ export class VetsService {
   constructor(private httpClient: HttpClient) { }
 
   findAll(): Observable<Vet[]> {
-    return this.httpClient.get<Vet[]>(environment.vetsApi).pipe(
+    return this.httpClient.get<Vet[]>(environment.vetsApi, {
+      withCredentials: true
+    }).pipe(
       map((vets) => vets.map((data: any) => new Vet(data)))
     );
   }

@@ -9,7 +9,7 @@
       <input type="text" class="form-control" id="last-name" name="last-name" placeholder="Last Name" [(ngModel)]="lastName">
     </div>
     <button type="submit" class="btn btn-primary mr-3" (click)="findOwners()">Find Owners</button>
-    <button type="submit" class="btn btn-secondary mr-3" (click)="createOwner()">New Owner</button>
+    <button type="submit" class="btn btn-secondary mr-3" (click)="createOwner()" *ngIf="newOwnerAllowed">New Owner</button>
   </form>
 
   <div class="table-responsive">

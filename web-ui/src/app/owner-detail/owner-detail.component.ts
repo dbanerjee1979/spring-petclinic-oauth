@@ -10,6 +10,7 @@ import { PetService } from '../pet.service';
 import { Pet } from '../pet';
 import { VisitEditComponent } from '../visit-edit/visit-edit.component';
 import { VisitService } from '../visit.service';
+import { AuthService } from '../auth.service';
 
 @Component({
   selector: 'app-owner-detail',
@@ -19,18 +20,35 @@ import { VisitService } from '../visit.service';
 export class OwnerDetailComponent implements OnInit {
   id: number;
   owner: Owner | {} = {};
+  editOwnerAllowed: boolean = false;
+  newPetAllowed: boolean = false;
+  editPetAllowed: boolean = false;
+  newVisitAllowed: boolean = false;
 
   constructor(
     private modalService: NgbModal,
     private ownerService: OwnerService,
     private petService: PetService,
     private visitService: VisitService,
+    private auth: AuthService,
     private route: ActivatedRoute) { }
 
   ngOnInit() {
     this.route.paramMap.pipe(
-      switchMap((params: ParamMap) => this.ownerService.findDetailsById(this.id = +params.get('id')))
-    ).subscribe((owner) => this.owner = owner);
+      switchMap((params: ParamMap) => this.ownerService.findDetailsById(this.id = +params.get('id'))),
+      switchMap((owner) => { this.owner = owner; return this.auth.authenticated })
+    ).subscribe(() => {
+      this.editOwnerAllowed = false;
+      this.newPetAllowed = false;
+      this.editPetAllowed = false;
+      this.newVisitAllowed = false;
+      if (this.owner instanceof Owner) {
+        this.editOwnerAllowed = this.auth.isOwner(this.owner.username);
+        this.newPetAllowed = this.auth.hasAdmin();
+        this.editPetAllowed = this.auth.isOwner(this.owner.username);
+        this.newVisitAllowed = this.auth.isOwner(this.owner.username);
+      }
+    });
   }
 
   editOwner() {

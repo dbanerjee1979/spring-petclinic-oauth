@@ -47,8 +47,8 @@
           </div>
         </div>    
       </div>
-      <button class="btn btn-primary mr-3" (click)="editOwner()">Edit Owner</button>
-      <button class="btn btn-secondary" (click)="newPet()">New Pet</button>
+      <button class="btn btn-primary mr-3" (click)="editOwner()" *ngIf="editOwnerAllowed">Edit Owner</button>
+      <button class="btn btn-secondary" (click)="newPet()" *ngIf="newPetAllowed">New Pet</button>
     </div>
   </div>
 
@@ -76,8 +76,8 @@
             </tr>    
           </tbody>
         </table>
-        <button class="btn btn-primary mr-3" (click)="editPet(pet)">Edit Pet</button>
-        <button class="btn btn-secondary" (click)="createVisit(pet)">New Visit</button>  
+        <button class="btn btn-primary mr-3" (click)="editPet(pet)" *ngIf="editPetAllowed">Edit Pet</button>
+        <button class="btn btn-secondary" (click)="createVisit(pet)" *ngIf="newVisitAllowed">New Visit</button>  
       </div>
     </div>    
   </div>

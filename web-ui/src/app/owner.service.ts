@@ -15,23 +15,30 @@ export class OwnerService {
 
   findOwners(lastName: string): Observable<Owner[]> {
     return this.httpClient.get<Owner[]>(environment.ownerApi, {
-      params: new HttpParams().set('lastName', lastName || '')
+      params: new HttpParams().set('lastName', lastName || ''),
+      withCredentials: true
     }).pipe(
       map((owners: Owner[]) => owners.map((owner) => new Owner(Object.assign(owner))))
     );
   }
 
   findDetailsById(id: number): Observable<Owner> {
-    return this.httpClient.get<Owner>(`${environment.ownerApi}/${id}/details`).pipe(
+    return this.httpClient.get<Owner>(`${environment.ownerApi}/${id}/details`, {
+      withCredentials: true
+    }).pipe(
       map((owner: Owner) => new Owner(Object.assign(owner)))
     );
   }
 
   create(owner: Owner): Observable<Owner> {
-    return this.httpClient.post<Owner>(environment.ownerApi, owner);
+    return this.httpClient.post<Owner>(environment.ownerApi, owner, {
+      withCredentials: true
+    });
   }
 
   update(id: number, owner: Owner): Observable<Owner> {
-    return this.httpClient.put<Owner>(`${environment.ownerApi}/${id}`, owner);
+    return this.httpClient.put<Owner>(`${environment.ownerApi}/${id}`, owner, {
+      withCredentials: true
+    });
   }
 }

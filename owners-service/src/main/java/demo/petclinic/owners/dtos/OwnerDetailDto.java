@@ -10,6 +10,7 @@ public class OwnerDetailDto {
     private Long id;
     private String firstName;
     private String lastName;
+    private String username;
     private String address;
     private String city;
     private String telephone;
@@ -23,6 +24,7 @@ public class OwnerDetailDto {
         this.city = owner.getCity();
         this.telephone = owner.getTelephone();
         this.pets = owner.getPets().stream().map(PetDetailDto::new).collect(toList());
+        this.username = owner.getUsername();
     }
 
     public Long getId() {
@@ -47,6 +49,14 @@ public class OwnerDetailDto {
 
     public void setLastName(String lastName) {
         this.lastName = lastName;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public String getAddress() {
