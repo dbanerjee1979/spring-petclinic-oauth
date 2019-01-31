@@ -1,4 +1,4 @@
-package demo.petclinic.controllers;
+package demo.petclinic.auth.controllers;
 
 import org.springframework.http.MediaType;
 import org.springframework.security.core.Authentication;

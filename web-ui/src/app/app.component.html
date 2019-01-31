@@ -11,10 +11,12 @@
       <a class="nav-link" href="#" routerLink="/vets" routerLinkActive="active">Veterinarian</a>
     </li>
     <li class="nav-item" *ngIf="!authenticated">
+      <!-- Let the pet-clinic application handles login because it is the OAuth client -->
       <a class="nav-link" href="http://localhost:8080/pet-clinic/login">Login</a>
     </li>
     <li class="nav-item" *ngIf="authenticated">
-      <form ngNoForm action="http://localhost:8080/pet-clinic/logout" method="post">
+      <!-- Let the auth server handle logout because because it doesn't make sense to "log out" of an OAuth client -->
+      <form ngNoForm action="http://localhost:8081/auth-server/logout?redirect_uri=http://localhost:4200" method="post">
         <button type="submit" class="nav-link btn btn-link">Logout</button>
       </form>
     </li>

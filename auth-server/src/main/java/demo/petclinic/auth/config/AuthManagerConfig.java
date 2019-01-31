@@ -1,4 +1,4 @@
-package demo.petclinic.config;
+package demo.petclinic.auth.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -16,7 +16,7 @@ public class AuthManagerConfig {
                 .and().withUser("sam").password(encrypt("bar")).roles("OWNER");
     }
 
-    private String encrypt(String password) {
+    public String encrypt(String password) {
         return "{bcrypt}" + encoder.encode(password);
     }
 }
