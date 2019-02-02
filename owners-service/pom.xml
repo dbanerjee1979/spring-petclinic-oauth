@@ -11,4 +11,12 @@
     </parent>
 
     <artifactId>owners-service</artifactId>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-security</artifactId>
+            <scope>provided</scope>
+        </dependency>
+    </dependencies>
 </project>
