@@ -6,6 +6,7 @@ import org.springframework.security.oauth2.config.annotation.configurers.ClientD
 import org.springframework.security.oauth2.config.annotation.web.configuration.AuthorizationServerConfigurer;
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerEndpointsConfigurer;
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerSecurityConfigurer;
+import org.springframework.security.oauth2.provider.approval.InMemoryApprovalStore;
 
 @Configuration
 public class AuthServerConfig implements AuthorizationServerConfigurer {
@@ -33,5 +34,6 @@ public class AuthServerConfig implements AuthorizationServerConfigurer {
 
     @Override
     public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
+        endpoints.approvalStore(new InMemoryApprovalStore());
     }
 }

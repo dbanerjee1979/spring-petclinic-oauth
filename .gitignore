@@ -4,3 +4,4 @@ target/*
 app-server/target/*
 owners-service/target/*
 vets-service/target/*
+auth-server/target/*
